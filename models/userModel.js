@@ -9,10 +9,23 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   phoneNumber: { type: Number, required: true },
-  createdBy:  { type: mongoose.SchemaType.objectId, ref: userSchema },
-  createdDate: Date,
-  modifiedBy:  { type: mongoose.SchemaType.objectId, ref: userSchema },
-  modifiedDate: Date,
+  role:{type: mongoose.SchemaTypes.ObjectId, ref:"Role", default:"61bf00707c4b261af8f0bd59"},
+  comment:[{ comment: String,
+    // userName: { type: mongoose.SchemaType.ObjectId, ref: "User" },
+    createdBy:  { type: mongoose.SchemaType.ObjectId, ref: "User" },
+    createdDate: Date,
+    // modifiedBy:  { type: mongoose.SchemaType.ObjectId, ref: "User" },
+    modifiedDate: Date,
+    isDeleted: {type: Boolean , default:false},}]
+  // bookings:[{event: { type: mongoose.SchemaTypes.ObjectId, ref: "Event" },
+  // date: {type: Date ,required:true},
+  // details: {type: String,required:true},
+  // paymentStatus: {type: Number},
+  // createdBy:  { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
+  // createdDate: Date,
+  // modifiedBy:  { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
+  // modifiedDate: Date,
+  // isDeleted: {type: Boolean , default:false}}]
 });
 
 userSchema.pre("save", async function () {
