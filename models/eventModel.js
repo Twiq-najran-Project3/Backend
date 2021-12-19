@@ -10,15 +10,13 @@ const eventSchema = new mongoose.Schema({
   date: { type: Date, required: true },
   description: { type: String, required: true },
   images: {type: String, required},
-  createdBy: String,
+  createdBy:  { type: mongoose.SchemaType.objectId, ref: userSchema },
   createdDate: Date,
-  modifiedBy: String,
+  modifiedBy:  { type: mongoose.SchemaType.objectId, ref: userSchema },
   modifiedDate: Date,
   isDeleted: {type: Boolean , default:false},
 });
 
-eventSchema.pre("save", async function () {
-  this.userName = this.userName.toLowerCase();
-});
+
 
 module.exports.event = mongoose.model("Event", eventSchema);

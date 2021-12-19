@@ -6,15 +6,13 @@ const roleSchema = new mongoose.Schema({
   role: { type: String,required},
   userName: { type: mongoose.SchemaType.objectId, ref: userSchema },
   permissions: {type: Array,required},
-  createdBy: String,
+  createdBy:  { type: mongoose.SchemaType.objectId, ref: userSchema },
   createdDate: Date,
-  modifiedBy: String,
+  modifiedBy:  { type: mongoose.SchemaType.objectId, ref: userSchema },
   modifiedDate: Date,
   isDeleted: {type: Boolean , default:false},
 });
 
-roleSchema.pre("save", async function () {
-  this.userName = this.userName.toLowerCase();
-});
+
 
 module.exports.role = mongoose.model("Role", roleSchema);
