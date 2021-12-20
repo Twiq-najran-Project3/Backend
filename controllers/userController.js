@@ -22,9 +22,13 @@ const getUserByID = (req, res) => {
     });
 };
 
+// ----------------------------------
+//               Get All booking
+// ----------------------------------
+
 const getAllBooking =(req, res) =>{
   const name = req.params.name;
-  bookings.find({userName:name})
+  User.find({userName:name})
   .then((result)=>{
     res.status(200);
     res.send(result);
@@ -36,40 +40,63 @@ const getAllBooking =(req, res) =>{
 
  
 }
-// const userName = req.body.username;
-// const user = find({username:userName})
-// .then((result) => {
-//   if(found){
-//     const newBooking = new Booking(req.event, Date.now(),details, 'notPaid',user._id, false);
-//      user.Bookings.push(newBooking);
 
-//     res.status(200)
-//     res.send(result);
-
-//   }
+// ----------------------------------
+//          Create New Booking
+// ----------------------------------
+const addBooking =(req, res) =>{
+const userName = req.body.username;
+// const eventId = req.body.username;
+User.findOne({username:userName}, function(err, result){
+  if(err){
+    console.log(err)
+  }
+  else
+  {
+    if(!result)
+    {
+      res.status(404).send("User not found");
+    }
+    else
+    {
+      const newBooking = new Booking( Date.now(),"details", 'notPaid',result._id, false);
+      console.log(result.bookings)
+      console.log(newBooking);
+      result.bookings.push(newBooking);
+      console.log(result);
+      User.findByIdAndUpdate(result._id, {bookings: result.bookings}).then(
+        result => {
+          res.status(200).json({user: result});
+          return  
+        }
+      ).catch(err => {
+        console.log(err);
+      });
+ 
+    }
+  }
+});
+}
   
-// })
-// .catch((err) => {
-//   res.status(400);
-//   res.send(err);
-// });
 
-// function Booking(event, date,details, paymentStatus, createdBy, isDeleted){
-//   this.event,
-//   this.date,
-//   this.details,
-//   this.paymentStatus,
-//   this.createdBy,
-//   this.createdDate,
-//   this.isDeleted
-// }
+function Booking(
+  //event,
+   date,details, paymentStatus, createdBy, isDeleted){
+  //this.event,
+  return {
+    date,
+    details,
+    paymentStatus,
+    createdBy,
+    //createdDate,
+    isDeleted
+  }
+}
 
 ////////////////////////////////////////////////////////////////////////////
 
 
-// const addBooking = (req, res) => {
-//   const { date, details, paymentStatus } =
-//     req.body;
+
 //const user = find({username:})
     //req.body.username: Search by username
 //if found: add booking for this user
@@ -166,7 +193,7 @@ const rigester = (req, res) => {
 module.exports = {
   getUserByID,
   getAllBooking,
-  // addBooking,
+  addBooking,
   rigester,
   login,
 };
