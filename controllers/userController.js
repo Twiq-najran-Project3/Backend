@@ -10,7 +10,9 @@ const { User } = require("../models/userModel");
 const getUserByID = (req, res) => {
   const id = req.params.id;
   User.findOne({ userName: id })
+  .populate("role")
     .then((result) => {
+      console.log(result)
       res.status(200);
       res.send(result);
     })
@@ -94,9 +96,10 @@ const login = (req, res) => {
   const { userName, password } = req.body;
 console.log(req.body.password)
   User.findOne({ userName: userName })
+  .populate("role")
     .then((result) => {
       if (result) {
-        console.log(result.password)
+        console.log(result)
         bcrypt.compare(password, result.password, (err, result2) => {
           if (err) {
             console.log(err);
@@ -107,9 +110,10 @@ console.log(req.body.password)
             const payload = {
               id: result._id,
               username: result.username,
+              permissions: result.role.permissions
             };
             const options = {
-              expiresIn: "60s",
+              expiresIn: "1h",
             };
 
             const secret = "thisIsASecret";
