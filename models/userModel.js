@@ -13,16 +13,22 @@ const userSchema = new mongoose.Schema({
     ref: "Role",
     default: "61c02f3efc95ec1e62c8c9c9",
   },
-  comment: [
+  bookings: [
     {
-      comment: String,
-
+    event:{type: mongoose.SchemaTypes.ObjectId,
+        ref: "Event"},
+    date:Date,
+    details:String,
+    paymentStatus:String,
+    createdBy:{type: mongoose.SchemaTypes.ObjectId,
+      ref: "User"},
       createdDate: Date,
-
+      modifiedBy: {type: mongoose.SchemaTypes.ObjectId, ref: "User"},
       modifiedDate: Date,
-      isDeleted: { type: Boolean, default: false },
+      isDeleted: { type: Boolean, default: false }
     },
   ],
+  
 });
 
 userSchema.pre("save", async function () {
