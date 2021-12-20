@@ -3,8 +3,8 @@ const bcrypt = require("bcrypt");
 
 
 const roleSchema = new mongoose.Schema({
-  role: { type: String,required},
-  permissions: {type: Array,required},
+  role: { type: String,required:true},
+  permissions: {type: Array,required:true},
   createdDate: Date,
   modifiedDate: Date,
   isDeleted: {type: Boolean , default:false},
@@ -12,4 +12,4 @@ const roleSchema = new mongoose.Schema({
 
 
 
-module.exports.role = mongoose.model("Role", roleSchema);
+module.exports.Role = mongoose.model("Role", roleSchema);
