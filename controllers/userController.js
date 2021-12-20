@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require("mongoose");
 require("dotenv").config();
 const { User } = require("../models/userModel");
+
 // ---------------------------------------
 //           GetUser ByID
 // ---------------------------------------
@@ -19,16 +20,83 @@ const getUserByID = (req, res) => {
     });
 };
 
+const getAllBooking =(req, res) =>{
+  const name = req.params.name;
+  bookings.find({userName:name})
+  .then((result)=>{
+    res.status(200);
+    res.send(result);
+  })
+  .catch((err) => {
+    res.status(400);
+    res.send(err);
+  });
+
+ 
+}
+// const userName = req.body.username;
+// const user = find({username:userName})
+// .then((result) => {
+//   if(found){
+//     const newBooking = new Booking(req.event, Date.now(),details, 'notPaid',user._id, false);
+//      user.Bookings.push(newBooking);
+
+//     res.status(200)
+//     res.send(result);
+
+//   }
+  
+// })
+// .catch((err) => {
+//   res.status(400);
+//   res.send(err);
+// });
+
+// function Booking(event, date,details, paymentStatus, createdBy, isDeleted){
+//   this.event,
+//   this.date,
+//   this.details,
+//   this.paymentStatus,
+//   this.createdBy,
+//   this.createdDate,
+//   this.isDeleted
+// }
+
+////////////////////////////////////////////////////////////////////////////
+
+
+// const addBooking = (req, res) => {
+//   const { date, details, paymentStatus } =
+//     req.body;
+//const user = find({username:})
+    //req.body.username: Search by username
+//if found: add booking for this user
+//user.booking{date, detail, }
+  // const newBooking = new Booking(req.event, Date.now(),details, 'notPaid','UserIdFromFrontEnd', false);
+  // user.Bookings.push(newBooking);
+  //new User({
+  //event,
+  // date,
+  // details,
+  // paymentStatus,
+  // });
+
+  
+
+
+
+
 // ---------------------------------------
 //           Login Method
 // ---------------------------------------
 
 const login = (req, res) => {
   const { userName, password } = req.body;
-
-  User.findOne({ username: userName })
+console.log(req.body.password)
+  User.findOne({ userName: userName })
     .then((result) => {
       if (result) {
+        console.log(result.password)
         bcrypt.compare(password, result.password, (err, result2) => {
           if (err) {
             console.log(err);
@@ -93,6 +161,8 @@ const rigester = (req, res) => {
 
 module.exports = {
   getUserByID,
+  getAllBooking,
+  // addBooking,
   rigester,
   login,
 };
