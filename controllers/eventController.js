@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Event } = require("../models/eventModel");
 
+
 // ------------------------------------
 //             GET ALL Event
 // ------------------------------------
@@ -71,5 +72,49 @@ const updateEvent = (req, res) => {
 };
 
 
-module.exports = { getAllEvent, addEvent,updateEvent };
+// -------------------------------------------
+//                Add Comment
+// -------------------------------------------
+
+
+const addComment = (req, res) => {
+  const { comment,createdDate, modifiedDate, isDeleted } = req.body;
+
+  const newComment = new Comment({
+    comment,
+    createdDate,
+    modifiedDate,
+    isDeleted,
+   
+  });
+
+  newComment
+    .save()
+    .then((result) => {
+      console.log(result);
+      res.status(201).send("Comment  Created");
+    })
+    .catch((err) => {
+      res.json(err.message);
+    });
+};
+
+function Comment(
+  comment,createdDate, modifiedDate, isDeleted ){
+  return {
+    comment,createdDate, modifiedDate, isDeleted
+  }
+}
+
+
+
+// app.post("/posts",authentication,authorization("post"), (req,res)=>{
+//   const {comment} = req.body;
+//   res.json(comment)
+// })
+
+
+
+
+module.exports = { getAllEvent, addEvent,updateEvent , addComment };
 

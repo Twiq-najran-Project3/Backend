@@ -46,7 +46,7 @@ const getAllBooking =(req, res) =>{
 // ----------------------------------
 const addBooking =(req, res) =>{
 const userName = req.body.username;
-// const eventId = req.body.username;
+// const eventId = req.body.eventId;
 User.findOne({username:userName}, function(err, result){
   if(err){
     console.log(err)
@@ -82,8 +82,8 @@ User.findOne({username:userName}, function(err, result){
 function Booking(
   //event,
    date,details, paymentStatus, createdBy, isDeleted){
-  //this.event,
   return {
+  //event,
     date,
     details,
     paymentStatus,
@@ -93,22 +93,18 @@ function Booking(
   }
 }
 
+
+// ----------------------------------------------------------
+//                     Delete Booking
+// ----------------------------------------------------------
+
+
+
+
+
 ////////////////////////////////////////////////////////////////////////////
 
 
-
-//const user = find({username:})
-    //req.body.username: Search by username
-//if found: add booking for this user
-//user.booking{date, detail, }
-  // const newBooking = new Booking(req.event, Date.now(),details, 'notPaid','UserIdFromFrontEnd', false);
-  // user.Bookings.push(newBooking);
-  //new User({
-  //event,
-  // date,
-  // details,
-  // paymentStatus,
-  // });
 
   
 
