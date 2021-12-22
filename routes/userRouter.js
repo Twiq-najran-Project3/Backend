@@ -1,5 +1,5 @@
 const express=require('express');
-const { getUserByID , getAllBooking, addBooking , rigester, login } = require('../controllers/userController');
+const { getUserByID , rigester, login, } = require('../controllers/userController');
 const { authentication } = require("../middlewares/authentication")
 const { authorization } = require("../middlewares/authorization")
 
@@ -7,12 +7,10 @@ const { authorization } = require("../middlewares/authorization")
 const userRouter=express.Router();
 
 
-
 userRouter.get('/:id',authentication,getUserByID)
 userRouter.post('/rigester',rigester)
 userRouter.post('/login',login)
-// userRouter.get('/getAllBooking',getAllBooking)
-userRouter.post('/addBooking',addBooking)
+
 
 
 

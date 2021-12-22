@@ -1,6 +1,9 @@
 const express = require("express");
 const { userRouter } = require("./routes/userRouter");
 const { roleRouter } = require("./routes/roleRouter");
+const { eventRouter } = require("./routes/eventRouter");
+const { bookingRouter } = require("./routes/bookingRouter");
+const { commentRouter } = require("./routes/commentRouter");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 
@@ -15,7 +18,6 @@ const db = require("./MangoDB/dbConnection");
 // -------------------------
 
 const cors = require("cors");
-const { eventRouter } = require("./routes/eventRouter");
 
 app.use(express.json());
 app.use(cors());
@@ -34,6 +36,17 @@ app.use("/role", roleRouter);
 //         eventRouter
 // ---------------------------
 app.use("/event", eventRouter);
+
+// ---------------------------
+//        bookingRoutert
+// ---------------------------
+app.use("/booking",bookingRouter);
+
+// ---------------------------
+//        commentRoutert
+// ---------------------------
+ app.use("/comment",commentRouter);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

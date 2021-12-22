@@ -14,17 +14,17 @@ const eventSchema = new mongoose.Schema({
   modifiedBy: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
   modifiedDate: Date,
   isDeleted: { type: Boolean, default: false },
-  comment: [
-    {
-      comment: String,
-      userName: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
-      createdBy: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
-      createdDate: Date,
-      modifiedBy: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
-      modifiedDate: Date,
-      isDeleted: { type: Boolean, default: false },
-    },
-  ],
+  // comment: [
+  //   {
+  //     comment: String,
+  //     userName: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
+  //     createdBy: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
+  //     createdDate: Date,
+  //     modifiedBy: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
+  //     modifiedDate: Date,
+  //     isDeleted: { type: Boolean, default: false },
+  //   },
+  // ],
 });
 
 module.exports.Event = mongoose.model("Event", eventSchema);

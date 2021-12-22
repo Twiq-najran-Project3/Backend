@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const { User } = require("../models/userModel");
@@ -10,9 +10,9 @@ const { User } = require("../models/userModel");
 const getUserByID = (req, res) => {
   const id = req.params.id;
   User.findOne({ userName: id })
-  .populate("role")
+    .populate("role")
     .then((result) => {
-      console.log(result)
+      console.log(result);
       res.status(200);
       res.send(result);
     })
@@ -22,98 +22,20 @@ const getUserByID = (req, res) => {
     });
 };
 
-// ----------------------------------
-//               Get All booking
-// ----------------------------------
-
-const getAllBooking =(req, res) =>{
-  const name = req.params.name;
-  User.find({userName:name})
-  .then((result)=>{
-    res.status(200);
-    res.send(result);
-  })
-  .catch((err) => {
-    res.status(400);
-    res.send(err);
-  });
-
- 
-}
-
-// ----------------------------------
-//          Create New Booking
-// ----------------------------------
-const addBooking =(req, res) =>{
-const userName = req.body.username;
-// const eventId = req.body.username;
-User.findOne({username:userName}, function(err, result){
-  if(err){
-    console.log(err)
-  }
-  else
-  {
-    if(!result)
-    {
-      res.status(404).send("User not found");
-    }
-    else
-    {
-      const newBooking = new Booking( Date.now(),"details", 'notPaid',result._id, false);
-      console.log(result.bookings)
-      console.log(newBooking);
-      result.bookings.push(newBooking);
-      console.log(result);
-      User.findByIdAndUpdate(result._id, {bookings: result.bookings}).then(
-        result => {
-          res.status(200).json({user: result});
-          return  
-        }
-      ).catch(err => {
-        console.log(err);
-      });
- 
-    }
-  }
-});
-}
-  
-
-function Booking(
-  //event,
-   date,details, paymentStatus, createdBy, isDeleted){
-  //this.event,
-  return {
-    date,
-    details,
-    paymentStatus,
-    createdBy,
-    //createdDate,
-    isDeleted
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////
-
 
 
 //const user = find({username:})
-    //req.body.username: Search by username
+//req.body.username: Search by username
 //if found: add booking for this user
 //user.booking{date, detail, }
-  // const newBooking = new Booking(req.event, Date.now(),details, 'notPaid','UserIdFromFrontEnd', false);
-  // user.Bookings.push(newBooking);
-  //new User({
-  //event,
-  // date,
-  // details,
-  // paymentStatus,
-  // });
-
-  
-
-
-
+// const newBooking = new Booking(req.event, Date.now(),details, 'notPaid','UserIdFromFrontEnd', false);
+// user.Bookings.push(newBooking);
+//new User({
+//event,
+// date,
+// details,
+// paymentStatus,
+// });
 
 // ---------------------------------------
 //           Login Method
@@ -121,12 +43,12 @@ function Booking(
 
 const login = (req, res) => {
   const { userName, password } = req.body;
-console.log(req.body.password)
+  console.log(req.body.password);
   User.findOne({ userName: userName })
-  .populate("role")
+    .populate("role")
     .then((result) => {
       if (result) {
-        console.log(result)
+        console.log(result);
         bcrypt.compare(password, result.password, (err, result2) => {
           if (err) {
             console.log(err);
@@ -137,7 +59,7 @@ console.log(req.body.password)
             const payload = {
               id: result._id,
               username: result.username,
-              permissions: result.role.permissions
+              permissions: result.role.permissions,
             };
             const options = {
               expiresIn: "1h",
@@ -192,8 +114,6 @@ const rigester = (req, res) => {
 
 module.exports = {
   getUserByID,
-  getAllBooking,
-  addBooking,
   rigester,
   login,
 };
