@@ -19,6 +19,24 @@ const getAllEvent = (req, res) => {
     });
 };
 
+
+// -----------------------------
+//          Get Event
+// -----------------------------
+
+
+const getEvent = (req, res) => {
+  const id = req.params.id;
+  Event.findOne({ eventId:id })
+    .then((result) => {
+      res.status(200);
+      res.send(result);
+    })
+    .catch((err) => {
+      res.status(400);
+      res.send(err);
+    });
+};
 // ---------------------------
 //         Add Event
 // ---------------------------
@@ -71,5 +89,5 @@ const updateEvent = (req, res) => {
 };
 
 
-module.exports = { getAllEvent, addEvent,updateEvent };
+module.exports = { getAllEvent, addEvent,updateEvent,getEvent };
 
