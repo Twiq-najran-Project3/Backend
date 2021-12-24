@@ -6,6 +6,7 @@ const eventSchema = new mongoose.Schema({
   eventId: { type: Number, required: true, unique: true },
   userName: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
   city: { type: String, required: true },
+  price: { type: String, required: true },
   date: { type: Date, required: true },
   description: { type: String, required: true },
   images: { type: String, required: true },

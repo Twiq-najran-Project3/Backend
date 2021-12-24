@@ -42,9 +42,9 @@ const getUserByID = (req, res) => {
 // ---------------------------------------
 
 const login = (req, res) => {
-  const { userName, password } = req.body;
+  const { email, password } = req.body;
   console.log(req.body.password);
-  User.findOne({ userName: userName })
+  User.findOne({ email: email })
     .populate("role")
     .then((result) => {
       if (result) {
@@ -58,7 +58,7 @@ const login = (req, res) => {
           if (result2) {
             const payload = {
               id: result._id,
-              username: result.username,
+              email: result.email,
               permissions: result.role.permissions,
             };
             const options = {
@@ -75,7 +75,7 @@ const login = (req, res) => {
           }
         });
       } else {
-        res.status(404).json("username incorrect");
+        res.status(404).json("email incorrect");
       }
     })
     .catch((err) => {
