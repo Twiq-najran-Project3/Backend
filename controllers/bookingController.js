@@ -22,27 +22,8 @@ const getAllBooking = (req, res) => {
   //          Create New Booking
   // ----------------------------------
   const addBooking = (req, res) => {
-    const { 
-            event,
-            user,
-            date,
-            details,
-            paymentStatus,
-            createdBy,
-            createdDate,
-            isDeleted } = req.body;
-  
-    const newBook = new Booking({
-        event,
-        user,
-        date,
-      details,
-      paymentStatus,
-      createdBy,
-      createdDate,
-      isDeleted
-    });
-  
+    
+    const newBooking = new Booking(req.body);
     newBook
       .save()
       .then((result) => {

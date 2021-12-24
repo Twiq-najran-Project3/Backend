@@ -7,9 +7,9 @@ const commentSchema = new mongoose.Schema({
     event: { type: mongoose.SchemaTypes.ObjectId, ref: "Event" },
     user: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
     createdBy: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
-    createdDate: Date,
+    createdDate: String,
     modifiedBy: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
-    modifiedDate: Date,
+    modifiedDate: String,
     isDeleted: { type: Boolean, default: false },
 });
 
